@@ -12,6 +12,7 @@ Features
 
 - Playing with AudioLazy
 - Shows table lookup models (one cycle) with MatPlotLib (pylab)
+- Compatible with both Python 2 and 3
 
 ----
 

@@ -25,9 +25,13 @@ Features:
 - Playing with AudioLazy
 
 """
+
+from __future__ import print_function
+
 from audiolazy import (sHz, Streamix, adsr, z, gauss_noise, thub, chain, pi,
                        repeat, str2midi, midi2freq, karplus_strong, saw_table,
-                       zeros, AudioIO, inf, atan, TableLookup, sin_table)
+                       zeros, AudioIO, inf, atan, TableLookup, sin_table,
+                       orange, xrange)
 from random import shuffle
 import pylab
 
@@ -35,7 +39,7 @@ import pylab
 tuning = "E5 B4 G4 D4 A3 E3".split()
 first_fret = 1
 last_fret = 7
-fingers = range(4) # list of fingers to be used ("imao" fingering from 0 to 3)
+fingers = orange(4) # list of used fingers ("imao" fingering from 0 to 3)
 width = 79 # monospaced characters
 beat = 60 # bpm
 notes_per_beat = 4
@@ -50,13 +54,13 @@ if shuffle_fingers and not shuffle_per_string:
 num_strings = len(tuning)
 notes = []
 inv_fingers = fingers[::-1]
-for forefinger_fret in range(first_fret, last_fret + 1):
+for forefinger_fret in xrange(first_fret, last_fret + 1):
   inverter = slice(None, None, (-1) ** forefinger_fret) # Alternates asc/desc
   if invert_when_backwards:
     finger_order = inv_fingers[inverter]
   else:
     finger_order = fingers
-  for idx in range(num_strings)[inverter]:
+  for idx in orange(num_strings)[inverter]:
     frets = [x + forefinger_fret for x in finger_order]
     if shuffle_fingers and shuffle_per_string:
       shuffle(frets)
@@ -106,8 +110,8 @@ if staff_row:
 
 # Prints the tablature
 for staff in tab:
-  print "\n".join("".join(el) for el in zip(*(heading_cols + staff)))
-  print
+  print("\n".join("".join(el) for el in zip(*(heading_cols + staff))))
+  print()
 
 #
 # Audio
