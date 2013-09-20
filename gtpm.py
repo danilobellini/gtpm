@@ -28,9 +28,10 @@ from audiolazy import (sHz, Streamix, adsr, z, gauss_noise, thub, chain, pi,
                        orange, xrange)
 from random import shuffle
 import pylab
+from gtpm.guitar import Guitar
 
 # Input parameters
-tuning = "E5 B4 G4 D4 A3 E3".split()
+tuning = "E5 B4 G4 D4 A3 E3"
 first_fret = 1
 last_fret = 7
 fingers = orange(4) # list of used fingers ("imao" fingering from 0 to 3)
@@ -43,9 +44,10 @@ shuffle_per_string = False # Ignored when shuffle_fingers is False
 invert_when_backwards = True
 
 # Create notes as pairs (string_index, fret)
+guitar = Guitar(tuning)
 if shuffle_fingers and not shuffle_per_string:
   shuffle(fingers)
-num_strings = len(tuning)
+num_strings = len(guitar)
 notes = []
 inv_fingers = fingers[::-1]
 for forefinger_fret in xrange(first_fret, last_fret + 1):
@@ -66,7 +68,7 @@ for forefinger_fret in xrange(first_fret, last_fret + 1):
 
 # Create tablature columns
 # A column is a list of strings for each row
-tab_cols = [[el for el in tuning], ["|-"] * num_strings]
+tab_cols = [[gs.tune for gs in guitar], ["|-"] * num_strings]
 for string_idx, fret in notes:
   column = ["-"] * num_strings
   column[string_idx] = "{}".format(fret)
@@ -142,7 +144,7 @@ table = sin_table.harmonize(harmonics).normalize()
 mem_table = (3 * saw_table + (sin_table - saw_table) ** 3).normalize()
 
 # Notes synth
-midi_tuning = str2midi(tuning)
+midi_tuning = str2midi([gs.tune for gs in guitar])
 midi_pitches = [midi_tuning[string_idx] + fret for string_idx, fret in notes]
 for freq in midi2freq(midi_pitches):
   ks_memory = .1 * gauss_noise() + .9 * mem_table(freq * Hz)
