@@ -16,6 +16,6 @@ Features
 
 ----
 
-Copyright (C) 2012 Danilo de Jesus da Silva Bellini
+Copyright (C) 2013 Danilo de Jesus da Silva Bellini
 
 License is GPLv3. See COPYING.txt for more details.

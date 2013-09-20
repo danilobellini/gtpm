@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2013 Danilo de Jesus da Silva Bellini
+# Copyright (C) 2013 Danilo de Jesus da Silva Bellini
 #
 # This is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,12 +18,6 @@
 # danilo [dot] bellini [at] gmail [dot] com
 """
 Guitar Tab Problem Maker
-
-Features:
-- Reading exercises (shuffled per string)
-- Fingering exercises (fingering follows a pattern)
-- Playing with AudioLazy
-
 """
 
 from __future__ import print_function
